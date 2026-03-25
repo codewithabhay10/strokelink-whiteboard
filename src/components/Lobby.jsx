@@ -39,20 +39,6 @@ export default function Lobby({ onCreateRoom, onJoinRoom }) {
 
       <div className="lobby-card">
         <div className="lobby-header">
-          <div className="logo-icon">
-            <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-              <rect width="44" height="44" rx="14" fill="url(#lg)" />
-              <path d="M13 22C13 17.5 15.5 13 22 13C28.5 13 31 17.5 31 22C31 26.5 28.5 31 22 31"
-                stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-              <circle cx="22" cy="22" r="3" fill="white" opacity="0.9" />
-              <defs>
-                <linearGradient id="lg" x1="0" y1="0" x2="44" y2="44">
-                  <stop stopColor="#6d28d9" />
-                  <stop offset="1" stopColor="#14b8a6" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
           <h1>Strokelink</h1>
           <p className="subtitle">Real-time P2P Collaborative Whiteboard</p>
         </div>

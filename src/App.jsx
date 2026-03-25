@@ -161,6 +161,26 @@ export default function App() {
     return () => socket.off('peer-left', handlePeerLeft);
   }, []);
 
+  // ── Leave room ────────────────────────────────────────────────
+  const handleLeaveRoom = useCallback(() => {
+    rtcRef.current?.destroy();
+    rtcRef.current = null;
+
+    const socket = socketRef.current;
+    if (socket) {
+      socket.removeAllListeners('room-created');
+      socket.removeAllListeners('room-joined');
+      socket.removeAllListeners('peer-joined');
+      socket.removeAllListeners('peer-left');
+      socket.removeAllListeners('signal');
+      socket.disconnect();
+    }
+
+    setView('lobby');
+    setRoomId('');
+    setConnectionState('waiting');
+  }, []);
+
   return (
     <>
       {error && (
@@ -178,6 +198,7 @@ export default function App() {
           webrtcManager={rtcRef.current}
           connectionState={connectionState}
           roomId={roomId}
+          onLeaveRoom={handleLeaveRoom}
         />
       )}
     </>

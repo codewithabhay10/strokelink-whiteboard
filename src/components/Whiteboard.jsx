@@ -3,7 +3,7 @@ import { useRef, useEffect, useState, useCallback } from 'react';
 const LOCAL_COLOR = '#6d28d9';   // deep violet
 const REMOTE_COLOR = '#14b8a6';  // teal
 
-export default function Whiteboard({ webrtcManager, connectionState, roomId }) {
+export default function Whiteboard({ webrtcManager, connectionState, roomId, onLeaveRoom }) {
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
   const isDrawing = useRef(false);
@@ -207,17 +207,6 @@ export default function Whiteboard({ webrtcManager, connectionState, roomId }) {
       <div className="toolbar">
         <div className="toolbar-left">
           <div className="toolbar-brand">
-            <svg width="22" height="22" viewBox="0 0 44 44" fill="none">
-              <rect width="44" height="44" rx="14" fill="url(#tb-g)" />
-              <path d="M13 22C13 17.5 15.5 13 22 13C28.5 13 31 17.5 31 22C31 26.5 28.5 31 22 31"
-                stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-              <circle cx="22" cy="22" r="3" fill="white" opacity="0.9" />
-              <defs>
-                <linearGradient id="tb-g" x1="0" y1="0" x2="44" y2="44">
-                  <stop stopColor="#6d28d9" /><stop offset="1" stopColor="#14b8a6" />
-                </linearGradient>
-              </defs>
-            </svg>
             <span className="toolbar-title">Strokelink</span>
           </div>
           <div className="toolbar-divider" />
@@ -265,6 +254,15 @@ export default function Whiteboard({ webrtcManager, connectionState, roomId }) {
             <span className="status-dot" />
             {statusLabel}
           </div>
+          <button className="btn-leave" id="leave-room" onClick={onLeaveRoom} title="Leave Room">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            Leave
+          </button>
         </div>
       </div>
 
