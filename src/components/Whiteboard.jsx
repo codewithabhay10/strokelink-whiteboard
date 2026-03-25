@@ -218,7 +218,7 @@ export default function Whiteboard({ webrtcManager, connectionState, roomId }) {
                 </linearGradient>
               </defs>
             </svg>
-            <span className="toolbar-title">Light-Speed</span>
+            <span className="toolbar-title">Strokelink</span>
           </div>
           <div className="toolbar-divider" />
           <span className="room-badge" id="room-badge">{roomId}</span>

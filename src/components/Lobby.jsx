@@ -53,7 +53,7 @@ export default function Lobby({ onCreateRoom, onJoinRoom }) {
               </defs>
             </svg>
           </div>
-          <h1>Light-Speed</h1>
+          <h1>Strokelink</h1>
           <p className="subtitle">Real-time P2P Collaborative Whiteboard</p>
         </div>
 
