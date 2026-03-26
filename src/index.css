@@ -429,12 +429,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
-  height: 52px;
+  padding: 8px 16px;
+  min-height: 52px;
   background: var(--surface-0);
   border-bottom: 1px solid var(--border-subtle);
   z-index: 10;
   flex-shrink: 0;
+  gap: 10px;
 }
 
 .toolbar-left,
@@ -443,6 +444,22 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.toolbar-left {
+  flex: 0 0 auto;
+}
+
+.toolbar-center {
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.toolbar-right {
+  flex: 0 0 auto;
+  margin-left: auto;
 }
 
 .toolbar-brand {
@@ -500,6 +517,63 @@ body {
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+}
+
+.tool-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-2);
+  flex-shrink: 0;
+}
+
+.btn-tool-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 0 8px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-tool-mode:hover {
+  color: var(--text-primary);
+  background: var(--surface-3);
+}
+
+.btn-tool-mode.active {
+  color: var(--text-primary);
+  background: rgba(109, 40, 217, 0.18);
+  border-color: rgba(109, 40, 217, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(109, 40, 217, 0.2);
+}
+
+.tool-mode-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+}
+
+.shape-hint {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
 .color-input {
@@ -583,6 +657,80 @@ body {
   cursor: pointer;
   transition: all var(--transition-fast);
   white-space: nowrap;
+}
+
+.btn-tools-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn-tools-toggle:hover {
+  color: var(--text-primary);
+  border-color: var(--border-default);
+}
+
+.btn-tools-toggle.active {
+  color: var(--text-primary);
+  border-color: rgba(109, 40, 217, 0.35);
+  background: rgba(109, 40, 217, 0.18);
+}
+
+@media (max-width: 1200px) {
+  .toolbar {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .toolbar-center.compact-controls {
+    order: 3;
+    display: none;
+    flex: 1 1 100%;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+  }
+
+  .toolbar-center.compact-controls.open {
+    display: flex;
+  }
+
+  .toolbar-center.compact-controls::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .toolbar-left {
+    order: 1;
+  }
+
+  .toolbar-right {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .btn-tools-toggle {
+    display: inline-flex;
+  }
+
+  .tool-group,
+  .btn-tool,
+  .tool-switcher {
+    flex-shrink: 0;
+  }
 }
 .btn-leave:hover {
   background: rgba(239, 68, 68, 0.12);
@@ -673,6 +821,16 @@ body {
   touch-action: none;
 }
 
+.drawing-canvas.tool-eraser {
+  cursor: cell;
+}
+
+.drawing-canvas.tool-line,
+.drawing-canvas.tool-rectangle,
+.drawing-canvas.tool-circle {
+  cursor: crosshair;
+}
+
 /* ── Color legend (bottom bar) ────────────────────────────────── */
 .color-legend {
   position: absolute;
@@ -727,9 +885,47 @@ body {
   .lobby-header h1 { font-size: 24px; }
   .room-id-display { font-size: 32px; }
   
-  .toolbar { padding: 0 10px; gap: 6px; }
+  .toolbar {
+    min-height: 52px;
+    padding: 8px 10px;
+    gap: 6px;
+  }
   .toolbar-brand { display: none; }
   .toolbar-divider { display: none; }
   .tool-label { display: none; }
+  .tool-mode-label { display: none; }
+  .room-badge {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+  .tool-switcher {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .toolbar-center.compact-controls {
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  .toolbar-right {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .status-badge {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+  .btn-leave {
+    padding: 6px 10px;
+  }
+  .shape-hint {
+    font-size: 10px;
+  }
+  .color-legend {
+    bottom: 14px;
+    padding: 5px 12px;
+  }
   .canvas-area { padding: 8px; }
 }
